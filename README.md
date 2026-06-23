@@ -1,0 +1,281 @@
+# Bank Simulation System
+
+A comprehensive banking simulation system built using Spring Boot for the backend and HTML/CSS/JavaScript for the frontend. This project demonstrates a complete agile development lifecycle with all banking operations including transaction history, low balance alerts, and email notifications.
+
+## Project Overview
+
+This Bank Simulation System allows users to:
+- Create bank accounts
+- Perform deposits and withdrawals
+- Transfer money between accounts
+- View transaction history
+- Receive low balance alerts via email
+- View all accounts in the system
+
+## Technologies Used
+
+### Backend
+- **Java 21**
+- **Spring Boot 4.0.1**
+- **Spring Data JPA**
+- **MySQL Database**
+- **Maven** for dependency management
+
+### Frontend
+- **HTML5**
+- **CSS3** with responsive design
+- **Vanilla JavaScript** for API integration
+- **Fetch API** for HTTP requests
+
+## Features Implemented
+
+### ✅ Sprint 1 (US-01 to US-03)
+- ✔️ Project structure and Spring Boot server setup
+- ✔️ Account class and repository with balance handling
+- ✔️ Account creation API
+
+### ✅ Sprint 2 (US-04 to US-07)
+- ✔️ Deposit functionality
+- ✔️ Withdrawal functionality with exception handling
+- ✔️ Transfer functionality between accounts
+- ✔️ Transaction validation and history logging
+
+### ✅ Sprint 3 (US-08 to US-09)
+- ✔️ Low balance alert service
+- ✔️ Email notification for low balance
+
+### ✅ Sprint 4 (US-10 to US-12)
+- ✔️ Frontend UI development
+- ✔️ Frontend-backend integration
+- ✔️ End-to-end testing capability
+
+## Project Structure
+
+```
+BankSimulation/
+├── src/
+│   ├── main/
+│   │   ├── java/com/bank/BankSimulation/
+│   │   │   ├── controller/
+│   │   │   │   └── AccountController.java
+│   │   │   ├── dto/
+│   │   │   │   ├── CreateAccountRequest.java
+│   │   │   │   └── TransferRequest.java
+│   │   │   ├── model/
+│   │   │   │   ├── Account.java
+│   │   │   │   └── Transaction.java
+│   │   │   ├── repository/
+│   │   │   │   ├── AccountRepository.java
+│   │   │   │   └── TransactionRepository.java
+│   │   │   ├── service/
+│   │   │   │   ├── AccountService.java
+│   │   │   │   ├── TransactionService.java
+│   │   │   │   ├── AlertService.java
+│   │   │   │   └── EmailService.java
+│   │   │   └── BankSimulationApplication.java
+│   │   └── resources/
+│   │       └── application.properties
+│   └── test/
+│       └── java/com/bank/BankSimulation/
+│           └── BankSimulationApplicationTests.java
+├── frontend/
+│   ├── css/
+│   │   └── styles.css
+│   ├── js/
+│   │   └── script.js
+│   └── index.html
+├── pom.xml
+└── README.md
+```
+
+## Setup Instructions
+
+### Prerequisites
+- Java 21 or higher
+- Maven 3.6+
+- MySQL 8.0+
+- Web browser (Chrome, Firefox, etc.)
+
+### Database Setup
+
+1. Create a MySQL database:
+```sql
+CREATE DATABASE banksimulation;
+```
+
+2. Update the `application.properties` file with your MySQL credentials:
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/banksimulation
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+```
+
+### Running the Backend
+
+1. Navigate to the project directory:
+```bash
+cd BankSimulation
+```
+
+2. Build the project:
+```bash
+mvn clean install
+```
+
+3. Run the application:
+```bash
+mvn spring-boot:run
+```
+
+The backend server will start on `http://localhost:8080`
+
+### Running the Frontend
+
+1. Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+2. Open `index.html` in your web browser or use a local server:
+```bash
+# Using Python 3
+python -m http.server 8000
+
+# Using Node.js (if you have http-server installed)
+npx http-server
+```
+
+3. Access the application at `http://localhost:8000` (or the port shown in your terminal)
+
+## API Endpoints
+
+### Account Management
+- `POST /accounts` - Create a new account
+- `GET /accounts` - Get all accounts
+- `GET /accounts/{accountNumber}` - Get account details
+- `DELETE /accounts/{accountNumber}/delete` - Delete an account
+
+### Transactions
+- `POST /accounts/{accountNumber}/deposit?amount={amount}` - Deposit money
+- `POST /accounts/{accountNumber}/withdraw?amount={amount}` - Withdraw money
+- `POST /accounts/{accountNumber}/transfer` - Transfer money
+- `GET /accounts/{accountNumber}/balance` - Check balance
+- `GET /accounts/{accountNumber}/history` - Get transaction history
+
+## Features in Detail
+
+### 1. Account Creation
+- Creates unique 16-digit account numbers
+- Stores customer name, age, and email
+- Initializes account with zero balance
+
+### 2. Deposit & Withdrawal
+- Validates transaction amounts
+- Updates account balance
+- Logs all transactions
+- Checks for low balance after withdrawal
+
+### 3. Money Transfer
+- Validates sender and receiver accounts
+- Ensures sufficient balance
+- Atomic transaction (both debit and credit happen together)
+- Logs successful and failed transfers
+
+### 4. Transaction History
+- Maintains complete transaction log
+- Shows all deposits, withdrawals, and transfers
+- Displays transaction status and timestamps
+
+### 5. Low Balance Alerts
+- Configurable threshold (default: Rs. 500)
+- Automatically triggered after withdrawals/transfers
+- Sends email notifications to account holders
+
+### 6. Email Notifications
+- Simulated email service (logs to console)
+- Can be easily integrated with real email services
+- Sends alerts for low balance situations
+
+## Configuration
+
+### Low Balance Threshold
+Edit `application.properties`:
+```properties
+bank.alert.threshold=500
+```
+
+## Testing the Application
+
+### Manual Testing Steps
+
+1. **Create Account**
+   - Fill in name, age, and email
+   - Note the generated account number
+
+2. **Deposit Money**
+   - Use the account number
+   - Enter amount to deposit
+   - Verify new balance
+
+3. **Withdraw Money**
+   - Use account number
+   - Enter amount (try withdrawing to trigger low balance alert)
+   - Check console for email notification
+
+4. **Transfer Money**
+   - Create two accounts
+   - Transfer money between them
+   - Verify transaction history
+
+5. **View History**
+   - Enter account number
+   - See all transactions with details
+
+6. **View All Accounts**
+   - Click refresh to see all accounts
+   - Verify all account details
+
+## Known Limitations
+
+- Email service is simulated (prints to console)
+- Database credentials are in properties file (should use environment variables in production)
+- No authentication/authorization implemented
+- Frontend uses basic styling (can be enhanced)
+
+## Future Enhancements
+
+- Add user authentication and login
+- Implement actual email service integration
+- Add account statement generation
+- Implement interest calculation
+- Add loan management features
+- Create admin dashboard
+- Add data visualization for transactions
+
+## Development Team
+
+- **Developer:** DanushAditya VC
+- **Role:** Full Stack Developer
+- **Development Period:** Dec 2025 - Jan 2026
+
+## Agile Methodology
+
+This project was developed following Agile Scrum methodology:
+- **Sprint 1:** Project setup and basic account management
+- **Sprint 2:** Transaction operations
+- **Sprint 3:** Alert and notification system
+- **Sprint 4:** Frontend development and integration
+
+Daily stand-ups, sprint planning, and retrospectives were conducted throughout development.
+
+## License
+
+This project is developed for educational purposes as part of an Agile development learning exercise.
+
+## Contact
+
+For any queries or issues, please contact DanushAditya VC.
+
+---
+
+**Note:** This is a simulation system for learning purposes. Do not use in production without proper security measures, authentication, and authorization mechanisms.

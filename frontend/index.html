@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Simulation System</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Bank Simulation System</h1>
+            <p class="subtitle">Manage your banking operations efficiently</p>
+        </header>
+
+        <nav class="tab-navigation">
+            <button class="tab-btn active" data-tab="create-account">Create Account</button>
+            <button class="tab-btn" data-tab="transactions">Transactions</button>
+            <button class="tab-btn" data-tab="history">Transaction History</button>
+            <button class="tab-btn" data-tab="accounts">All Accounts</button>
+        </nav>
+
+        <!-- Create Account Section -->
+        <div id="create-account" class="tab-content active">
+            <div class="card">
+                <h2>Create New Account</h2>
+                <form id="createAccountForm">
+                    <div class="form-group">
+                        <label for="name">Account Holder Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" min="18" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </form>
+                <div id="createAccountResult" class="result-message"></div>
+            </div>
+        </div>
+
+        <!-- Transactions Section -->
+        <div id="transactions" class="tab-content">
+            <div class="card">
+                <h2>Banking Transactions</h2>
+                
+                <!-- Check Balance -->
+                <div class="transaction-section">
+                    <h3>Check Balance</h3>
+                    <div class="input-row">
+                        <input type="text" id="balanceAccountNumber" placeholder="Account Number" class="input-full">
+                        <button onclick="checkBalance()" class="btn btn-info">Check Balance</button>
+                    </div>
+                    <div id="balanceResult" class="result-message"></div>
+                </div>
+
+                <!-- Deposit Money -->
+                <div class="transaction-section">
+                    <h3>Deposit Money</h3>
+                    <div class="input-row">
+                        <input type="text" id="depositAccountNumber" placeholder="Account Number">
+                        <input type="number" id="depositAmount" placeholder="Amount" min="0" step="0.01">
+                        <button onclick="deposit()" class="btn btn-success">Deposit</button>
+                    </div>
+                    <div id="depositResult" class="result-message"></div>
+                </div>
+
+                <!-- Withdraw Money -->
+                <div class="transaction-section">
+                    <h3>Withdraw Money</h3>
+                    <div class="input-row">
+                        <input type="text" id="withdrawAccountNumber" placeholder="Account Number">
+                        <input type="number" id="withdrawAmount" placeholder="Amount" min="0" step="0.01">
+                        <button onclick="withdraw()" class="btn btn-warning">Withdraw</button>
+                    </div>
+                    <div id="withdrawResult" class="result-message"></div>
+                </div>
+
+                <!-- Transfer Money -->
+                <div class="transaction-section">
+                    <h3>Transfer Money</h3>
+                    <div class="input-row">
+                        <input type="text" id="transferFromAccount" placeholder="From Account Number">
+                        <input type="text" id="transferToAccount" placeholder="To Account Number">
+                        <input type="number" id="transferAmount" placeholder="Amount" min="0" step="0.01">
+                        <button onclick="transfer()" class="btn btn-primary">Transfer</button>
+                    </div>
+                    <div id="transferResult" class="result-message"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction History Section -->
+        <div id="history" class="tab-content">
+            <div class="card">
+                <h2>Transaction History</h2>
+                <div class="input-row">
+                    <input type="text" id="historyAccountNumber" placeholder="Account Number" class="input-full">
+                    <button onclick="getTransactionHistory()" class="btn btn-info">Get History</button>
+                </div>
+                <div id="historyResult"></div>
+            </div>
+        </div>
+
+        <!-- All Accounts Section -->
+        <div id="accounts" class="tab-content">
+            <div class="card">
+                <h2>All Accounts</h2>
+                <button onclick="getAllAccounts()" class="btn btn-info">Refresh Accounts</button>
+                <div id="accountsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Bank Simulation System. Developed by DanushAditya VC</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
